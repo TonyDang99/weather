@@ -24,19 +24,6 @@ import { WeatherData, ForecastData } from '../types/weather';
 
 const getWeatherIconUrl = (icon: string) => `https://openweathermap.org/img/wn/${icon}@4x.png`;
 
-// 1. Helper for dynamic background (simple version)
-const getBackgroundGradient = (weatherMain: string, mode: string) => {
-  if (mode === 'dark') return 'linear-gradient(135deg, #232526 0%, #414345 100%)';
-  switch (weatherMain) {
-    case 'Clear': return 'linear-gradient(135deg, #56ccf2 0%, #2f80ed 100%)';
-    case 'Clouds': return 'linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%)';
-    case 'Rain': return 'linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%)';
-    case 'Thunderstorm': return 'linear-gradient(135deg, #232526 0%, #414345 100%)';
-    case 'Snow': return 'linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)';
-    default: return 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)';
-  }
-};
-
 // Theme definitions
 const THEMES = [
   {
@@ -91,8 +78,6 @@ const Weather: React.FC<{ mode: string; toggleMode: () => void }> = ({ mode, tog
       setLoading(false);
     }
   };
-
-  const weatherMain = weather ? weather.weather[0].main : '';
 
   return (
     <Box
