@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useMemo } from 'react';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import Weather from './components/Weather';
 
 function App() {
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const toggleMode = () => setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const theme = useMemo(() => createTheme({
+    palette: {
+      mode,
+      primary: {
+        main: '#1976d2',
+      },
+    },
+  }), [mode]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Weather mode={mode} toggleMode={toggleMode} />
+    </ThemeProvider>
   );
 }
 
